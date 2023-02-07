@@ -1,0 +1,20 @@
+#include <stdio.h>
+
+int binSearch(int List[],int Target,int Lo,int Hi)
+{
+  int Mid;
+  if(Hi<Low) return -1;
+  else
+    {
+      Mid=(Lo+Hi)/2;
+      if(List[Mid]==Target)
+	return Mid;
+      else if(Target<List[Mid])
+	return binSearch(List,Target,Lo,Mid-1);
+      else return binSearch(List,Target,Mid+1,Hi);
+    }
+  return -1;
+}
+
+int main()
+{}

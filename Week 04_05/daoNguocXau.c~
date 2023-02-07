@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include "stack.h"
+
+int main()
+{
+  int i,d;
+  int mang[Max];
+  Initialize(stack);
+  while(i!=0)
+    {
+      printf("Nhap so:");
+      scanf("%d",&d);
+      push(d,stack);
+      printf("Nhap 0 neu muon dung lai:");
+      scanf("%d",&i);
+    }
+  while(empty(stack)!=1)
+    {
+      mang[i]=pop(stack);
+      i++;
+    }
+  i=0;
+  while(mang[i]!='/0')
+    {
+      push(mang[i],stack);
+      i++;
+    }
+  while(empty(stack)!=1)
+    {
+      printf("%d\n",pop(stack));
+    }
+}

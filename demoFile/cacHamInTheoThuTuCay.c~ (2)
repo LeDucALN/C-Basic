@@ -1,0 +1,35 @@
+#include <stdio.c>
+
+void inorderprint( treetype tree)
+{
+  if(tree!=NULL)
+    {
+      inorderprint(tree->left);
+      printf("%4d\n",tree->key);
+      inorderprint(tree->right);
+    }
+}
+
+void postorderprint( treetype tree)
+{
+  if(tree!=NULL)
+    {
+      inorderprint(tree->left);
+      inorderprint(tree->right);
+      printf("%4d\n",tree->key);
+    }
+}
+
+void preorderprint( treetype tree)
+{
+  if(tree!=NULL)
+    {
+      printf("%4d\n",tree->key);
+      inorderprint(tree->left);
+      inorderprint(tree->right);
+    }
+}
+
+
+
+

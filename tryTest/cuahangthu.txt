@@ -1,0 +1,5 @@
+banh_Mi	5000	5
+ga_Ran	30000	10
+keo_Mut	1000	10
+khoai	15000	9
+xoi	10000	10

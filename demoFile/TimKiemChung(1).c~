@@ -1,0 +1,9 @@
+
+int timKiemLinhCanh (int M[],int N, int X)
+{
+  int k = 0; M[N]=X;
+  while (M[k] != X)
+    k++;
+  if(k==N) return -1;
+  return k+1;
+}

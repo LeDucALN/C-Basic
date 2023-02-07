@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio_ext.h>
+#include <math.h>
+#include <string.h>
+#include <ctype.h>
+#define Max 25
+#define MaxLength 100
+
+typedef struct
+{
+  char Anh[Max];
+  char Viet[Max];
+}Word;
+
+
+typedef Word elmType;
+typedef struct nodeType
+{
+  elmType element;
+  struct nodeType *left, *right;
+} node_Type;
+
+typedef struct nodeType *treetype;

@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <malloc.h>
+#define Max 100
+
+typedef struct DanhBa
+{
+	char name[1000];
+	char tel[1000];
+	char email[1000];
+}DanhBa_t;
+
+void main()
+{
+	FILE *fptr, *fptr1;
+	fptr = fopen ("DanhBa2.txt", "r");
+	int i = 0;
+	DanhBa_t p[Max];
+	DanhBa_t Khach;
+	int SoLuong;
+	
+	while ( !feof(fptr) )
+	{
+	  fgets( Khach.name,100,fptr);
+	  Khach.name[strlen(Khach.name) - 1] = '\0';
+	  fgets( Khach.tel, 100, fptr);
+	  Khach.tel[ strlen(Khach.tel) - 1] = '\0';
+	  fgets( Khach.email, 1000, fptr);
+	  Khach.email[ strlen(Khach.email) - 1] = '\0';
+	  p[i]=Khach;
+	  i++;
+	}
+	SoLuong=i;	
+	fclose(fptr);
+	fptr1 = fopen ("DanhBa2.txt", "w+");
+	
+	    int j;
+		printf("Sua thong tin danh ba cua nguoi thu:");
+		scanf( "%d", &j );
+		fflush(stdin);
+		i = j - 1;
+		
+		//fseek( fptr, sizeof(p[i - 1]), SEEK_SET);
+		
+		printf("Sua ten nguoi thu %d (i = %d) thanh:", j, i);
+		gets( Khach.name);
+		Khach.name[ strlen(Khach.name) ] = '\0';
+		
+		printf("Sua sdt thanh:");
+		gets( Khach.tel);
+		Khach.tel[ strlen(Khach.tel) ] = '\0';
+		
+		printf("Sua email thanh:");
+		gets( Khach.email);
+		Khach.email[ strlen(Khach.email) ] = '\0';
+		p[i]=Khach;
+		
+	for (i = 0; i < SoLuong; i++)
+	{
+	  fputs(p[i].name, sizeof(char), strlen(p[i].name), fptr);
+        fputs("\n",fptr);
+        fwrite(p[i].tel, sizeof(char), strlen(p[i].tel), fptr);
+        fputs("\n",fptr);
+        fwrite(p[i].email, sizeof(char), strlen(p[i].email), fptr);
+        fputs("\n",fptr);
+		
+		i++;
+	}
+	fclose(fptr1);
+	free(p);
+}

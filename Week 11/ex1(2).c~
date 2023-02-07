@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdio_ext.h>
+#define Max 100
+#define MaxDanhBa 100
+#define SoLuong 10
+
+typedef struct DanhBa
+{
+  char name[Max];
+  char tel[Max];
+  char mail[Max];
+}address;
+
+typedef address elementType;
+
+
+
+int main()
+{
+  address danhBa[MaxDanhBa];
+  int i;
+  int ViTri;
+  char str[Max],ten[Max];
+  FILE *fptr1,*fptr2;
+  fptr1=fopen("danhBa.txt","r");
+  for(i=0;i<SoLuong;i++)
+    {
+      fgets(str,100,fptr);
+      fgets(danhBa[i].name,100,fptr);
+      danhBa[i].name[strlen(danhBa[i].name)-1]='\0';
+      // printf("\n%s\n",danhBa[i].name);
+      fgets(danhBa[i].tel,100,fptr);
+      danhBa[i].tel[strlen(danhBa[i].tel)-1]='\0';
+      fgets(danhBa[i].mail,100,fptr);
+      danhBa[i].mail[strlen(danhBa[i].mail)-1]='\0';
+    }
+  fclose(fptr1);
+}

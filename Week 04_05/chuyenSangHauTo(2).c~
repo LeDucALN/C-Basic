@@ -1,0 +1,83 @@
+#include "stack.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+/*StackType createStack(unsigned MAX)
+{
+    StackType stack = (Stack *)malloc(sizeof(Stack));
+    stack->MAX = MAX;
+    stack->top = -1;
+    stack->array = (Eltype *)malloc(stack->MAX * sizeof(Eltype));
+    return stack;
+}
+*/
+int doUuTien(char a)
+{
+    if (a == '(')
+        return 0;
+    if (a == '+' || a == '-')
+        return 1;
+    if (a == '*' || a == '/')
+        return 2;
+}
+
+int peek(StackType stack)
+{
+   return stack[top];
+}
+void main()
+{
+    StackType A,B;
+    Initialize(A);
+    Initialize(B);
+    
+    char s[250], temp;
+    printf("Nhap vao Bieu thuc trung to:");
+    fgets(s, 250, stdin);
+    printf("%ld\n",strlen(s));
+    s[strlen(s) - 1] = 0;
+    printf("%ld\n",strlen(s));
+     for(int i = 0;i < strlen(s);i++)
+    {
+        if(isalnum(s[i]))
+        {
+	  push(s[i],A);
+        }
+        else if (s[i] == '(')
+        {
+	  push(s[i],B);
+        }
+        else if (s[i] == ')')
+        {
+            while ((temp = pop(B)) != '(')
+            {
+	      push(temp,A);
+            }
+        }
+        else
+        {
+            while (doUuTien(s[i]) <= doUuTien(peek(B)) && !empty(B))
+            {
+	      push(pop(B),A);
+            }
+            push(s[i],B);
+        }
+    }
+
+    while (!empty(B))
+    {
+      push(pop(B),A);
+    }
+
+    while (!empty(A))
+    {
+      push(pop(A),B);
+    }
+
+    while (!empty(B))
+    {
+        printf("%c ", pop(B));
+    }
+}

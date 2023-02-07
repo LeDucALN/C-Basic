@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdio_ext.h>
+#define Max 100
+#define MaxDanhBa 100
+#define SoLuong 10
+
+typedef struct DanhBa
+{
+  char name[Max];
+  char tel[Max];
+  char mail[Max];
+}address;
+
+int LinearSearch(address M[], int N,char *X)
+{
+  int k=0;
+  while(strcmp(M[k].name,X)!=0 && k<N)
+    k++;
+  if(k<N) return k;
+  return -1;
+}
+
+int main()
+{
+  address danhBa[MaxDanhBa];
+  int i;
+  int ViTri;
+  char str[Max],ten[Max];
+  FILE *fptr;
+  fptr=fopen("danhBa.txt","r");
+  for(i=0;i<SoLuong;i++)
+    {
+      fgets(str,100,fptr);
+      fgets(danhBa[i].name,100,fptr);
+      danhBa[i].name[strlen(danhBa[i].name)-1]='\0';
+      // printf("\n%s\n",danhBa[i].name);
+      fgets(danhBa[i].tel,100,fptr);
+      danhBa[i].tel[strlen(danhBa[i].tel)-1]='\0';
+      fgets(danhBa[i].mail,100,fptr);
+      danhBa[i].mail[strlen(danhBa[i].mail)-1]='\0';
+    }
+  printf("Ban muon tim ten nao:");
+  __fpurge(stdin);
+  gets(ten);
+  //printf("%s:%ld\n",ten,strlen(ten));
+  __fpurge(stdin);
+  ViTri=LinearSearch(danhBa,SoLuong,ten);
+  if(ViTri==-1)
+    printf("Khong co ten nay\n");
+  else
+    {
+      printf("%s\n",danhBa[ViTri].name);
+      printf("%s\n",danhBa[ViTri].tel);
+      printf("%s\n",danhBa[ViTri].mail);
+    }
+  fclose(fptr);
+}

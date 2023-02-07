@@ -1,0 +1,19 @@
+
+//1. tim kiem linh canh
+int timKiemLinhCanh (int M[],int N, int X);
+
+//2. tim kiem nhi phan
+int timKiemNhiPhan(int List[],int Target,int Size);
+  
+//3. tim kiem nhi phan de quy
+int timKiemNhiPhanDeQuy(int List[],int Target,int Lo,int Hi);
+  
+//4. tim kiem sap xep chuyen len dau
+int timKiemSXChuyenLenDau(int key,int r[],int n);
+  
+//5. tim kiem sap xep doi cho
+int timKiemSXDoiCho(int key,int r[],int n);
+  
+//6. tim kiem tuan tu
+int timKiemTuanTu( int M[], int N,int X);
+

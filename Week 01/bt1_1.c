@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdio_ext.h>
+#define Max 100
+
+void sapXep(char a[])
+{
+  int i,j;
+  char tmp;
+  for(i=0;i<strlen(a);i++)
+    for(j=i;j<strlen(a);j++)
+      {
+	if(a[i]>a[j])
+	  {
+	    tmp=a[i];
+	    a[i]=a[j];
+	    a[j]=tmp;
+	  }
+      }
+}
+
+int main()
+{
+  char a[Max];
+  int i,j;
+  int count;
+  count=1;
+  printf("Nhap vao a:");
+  scanf("%s",a);
+  __fpurge(stdin);
+  sapXep(a);
+  for(i=0;i<strlen(a);i++)
+    {
+      if(a[i]==a[i+1])
+	  count++;
+      else
+	{
+	  printf("%c:%d\n",a[i],count);
+	  count=1;
+	}
+    }
+}

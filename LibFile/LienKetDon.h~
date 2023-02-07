@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef int ElementType;
+struct _PointerType{
+  ElementType Inf;
+  struct _PointerType *Next;
+};
+typedef struct _PointerType PointerType;
+
+//1. Chen vao giua
+PointerType *InsertMiddle(PointerType *Prev, ElementType X);
+
+PointerType *InsertToHead(PointerType *First, ElementType X);
+
+PointerType *InsertToLast(PointerType *First, ElementType X);
+
+PointerType *DeleteLast(PointerType *First);
+
+int IsEmpty(PointerType *First);
+
+PointerType *MakeNull(PointerType *First);
+
+void Print(PointerType *First);
+  
+
+//2, Xoa
+ElementType Delete(PointerType *Prev);

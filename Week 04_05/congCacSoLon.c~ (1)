@@ -1,0 +1,73 @@
+#include <stdio.h>
+
+#define Max 50
+typedef int Eltype;
+typedef struct StackRec
+{
+  Eltype storage[Max];
+  int top;
+};
+
+typedef struct StackRec StackType;
+
+void Initialize(StackType *stack)
+{
+  (*stack).top=0;
+}
+
+int empty( StackType stack)
+{
+  return stack.top == 1;
+}
+
+int full(StackType stack)
+{
+  reurn stack.top==Max;
+}
+
+void push(Eltype el,StackType *stack)
+{
+  if(full(*stack))
+    printf("stack tran");
+  else (*stack).storage[(*stack).top++]=el;
+}
+
+Eltype pop(StackType *stack)
+{
+  if(empty(*stack))
+    printf("stack khong con de lay");
+  else return (*stack).storage[--(*stack).top];
+}
+
+int main()
+{
+  StackType stack1,stack2,stack3;
+  int i,d;
+  int n1,n2,n3,nho;
+  char a[Max],b[Max];
+  printf("Nhap so dau tien:");
+  scanf("%s",&a);
+  printf("Nhap so thu 2:");
+  scanf("%s",&b);
+  for(i=0;i<strlen(a);i++)
+    push(&stack1,a[i]);
+  for(i=0;i<strlen(b);i++)
+    push(&stack2,b[i]);
+
+  nho=0;
+  while(!empty(stack1)||!empty(stack2))
+    {
+      if(!empty(stack1)) n1=pop(stack1);
+      else n1=0;
+      if(!empty(stack2)) n2=pop(stack2);
+      else n2=0;
+      n3=n1+n2+nho;
+      if(n3>=10)
+	{
+	  nho=1;
+	  n3=n3-10;
+	}
+      push(&stack3,n3);
+    }
+  
+}

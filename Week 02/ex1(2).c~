@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <string.h>
+
+char *my_strcat( char s1[],char s2[])
+{
+  char *s3;
+  int n;
+  n=strlen(s1)+strlen(s2);
+  s3=(char*)malloc(n*sizeof(char));
+  strcpy(s3,strcat(s1,s2));
+  return s3;
+}

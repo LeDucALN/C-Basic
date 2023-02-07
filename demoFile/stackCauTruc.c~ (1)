@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+#define Max 50
+typedef int Eltype;
+typedef struct StackRec
+{
+  Eltype storage[Max];
+  int top;
+};
+
+typedef struct StackRec StackType;
+
+void Initialize(StackType *stack)
+{
+  (*stack).top=0;
+}
+
+int empty( StackType stack)
+{
+  return stack.top == 1;
+}
+
+int full(StackType stack)
+{
+  reurn stack.top==Max;
+}
+
+void push(Eltype el,StackType *stack)
+{
+  if(full(*stack))
+    printf("stack tran");
+  else (*stack).storage[(*stack).top++]=el;
+}
+
+Eltype pop(StackType *stack)
+{
+  if(empty(*stack))
+    printf("stack khong con de lay");
+  else return (*stack).storage[--(*stack).top];
+}

@@ -1,0 +1,239 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdio_ext.h>
+#include <stdlib.h>
+#include <math.h>
+#include <ctype.h>
+#define MaxName 20
+#define MaxSDT 11
+
+typedef struct
+{
+  char ten[MaxName];
+  char sdt[MaxSDT];
+}khachHang
+typedef khachHang ElementType;
+typedef struct Node
+{
+  ElementType Element;
+  struct Node* Next; //pointer to next element
+}Node;
+
+typedef Node* Position;
+
+typedef struct
+{
+  Position Front, Rear;
+}Queue;
+
+void MakeNullQueue(Queue *Q)
+{
+  Position Header;
+  Header=(Node*)malloc(sizeof(Node));
+  // Allocation Header
+  Header->Next=NULL;
+  Q->Front=Header;
+  Q->Rear=Header;
+}
+
+int EmptyQueue(Queue Q)
+{
+  return (Q.Front==Q.Rear);
+}
+
+void EnQueue(ElementType X, Queue *Q)
+{
+  Q->Rear->Next=(Node*)malloc(sizeof(Node));
+  Q->Rear=Q->Rear->Next;
+  Q->Rear->Element=X);
+  Q->Rear->Next=NULL;
+}
+
+ElementType DeQueue(Queue *Q)
+{
+  ElementType data;
+  data=Q->Front->Element;
+  if(!EmptyQueue(*Q))
+    {
+      Position T;
+      T=Q->Front;
+      Q->Front=Q->Front->Next;
+      free(T);
+    }
+  else printf("Queue is empty.\n");
+  return data;
+}
+
+int menuVaLuaChon(int a,int b)
+{
+  int luaChon,buff;
+  char c;
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%25s%6s%25s|\n","","MENU","");
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%5d|%-50s|\n",1,"Doc file danhsach.txt");
+  printf("|%5d|%-50s|\n",2,"Ban hang");
+  printf("|%5d|%-50s|\n",3,"Them nguoi mua vao hang doi");
+  printf("|%5d|%-50s|\n",4,"Ghi thong tin sau mot ngay");
+  printf("|%5d|%-50s|\n",5,"Thong ke thong tin ban hang");
+  printf("|%5d|%-50s|\n",6,"Yeu cau dac biet");
+  printf("|%5d|%-50s|\n",7,"Thoat");
+  printf("+-----+--------------------------------------------------+\n");
+
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao lua chon cua ban:");
+      buff=scanf("%d%c",&luaChon,&c);
+      if(buff!=2&&c!='\n'||luaChon<a||luaChon>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2&&c!='\n'||luaChon<a||luaChon>b);
+  return luaChon;
+}
+
+int kiemTraTen(char *s,int n)
+{
+  int i;
+  for(i=0;i<n;i++)
+    {
+      if(s+i==' ') return 0;
+    }
+  return 1;
+}
+
+int checkSoNguyenDuong(char cc[])
+{
+  int so,buff;
+  char c;
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",cc);
+      buff=scanf("%d%c",&so,&c);
+      if(buff!=2||c!='\n'||so<0) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2||c!='\n'||so<0);
+  return so;
+}
+
+
+int main()
+{
+  Queue Q;
+  int thoat,luaChon;
+  thoat=0;
+  FILE *fptr1,*fptr2;
+  khachHang Khach;
+  char str[MaxName];
+  int i,j;
+  int a,b,c;
+  int A,B,C;
+  int count;
+  MakeNull_Queue(&Q);
+  fptr1=fopen("danhsach.txt","w+");
+  fptr2=fopen("banhang.txt","a");
+  count=0;
+  A=0;B=0;C=0;
+  do
+    {
+      luaChon= menuVaLuaChon(1,7);
+      switch(luaChon)
+	{
+	case 1:
+	  //ham1
+	  while(fscanf(fptr1,"%s\t%s",Khach.ten,Khach.sdt)!=EOF)
+	    {
+	      fgets(str,10,fptr1);
+	      printf("%s\n",Khach.ten);
+	      EnQueue(Khach,&Q);
+	    }
+	    break;
+	case 2:
+	  //ham2
+	  while(1)
+	    {
+	      printf("Nhap ten khach hang them KHONG CO DAU CACH:");
+	      gets(Khach.ten);
+	      if(kiemTraTen(Khach.ten,strlen(Khach.ten))==1)
+		{
+		  break;
+		}
+	    }
+	  while(1)
+	    {
+	      printf("Nhap sdt khach hang them KHONG CO DAU CACH:");
+	      gets(Khach.sdt);
+	      if(kiemTraTen(Khach.sdt,strlen(Khach.sdt))==1)
+		{
+		  break;
+		}
+	    }
+	  EnQueue(Khach,&Q);
+	  break;
+	case 3:
+	  //ham3
+	  Khach=DeQueue(&Q);
+	  printf("Khach hang:%s voi sdt:%s\n",Khach.ten,Khach.sdt);
+	  a=checkSoNguyenDuong("So luong san pham A (>0):");
+	  b=checkSoNguyenDuong("So luong san pham B (>0):");
+	  c=checkSoNguyenDuong("So luong san pham C (>0):");
+	  fprintf(fptr2,"%d %d %d\n",a,b,c);
+	  break;
+	case 4:
+	  //ham4
+	  while(!EmptyQueue(Q))
+	    {
+	      Khach=DeQueue(&Q);
+	      printf("%s\t%s\n",Khach.ten,Khach.sdt);
+	      fprintf(fptr1,"%s\t%s\n",Khach.ten,Khach.sdt);
+	    }
+	  fprintf(fptr2,"%d\n",-1);
+	  break;
+	case 5:
+	  //ham5
+	   fseek(fptr2,6,SEEK_SET);
+	   while(fscanf(fptr2,"%d",&i)!=EOF)
+	     {
+	       if(i==-1)
+		 {
+		   count++;
+		 }
+	     }	   
+	   fseek(fptr2,6,SEEK_SET);
+	   while(fscanf(fptr2,"%d",&i)!=EOF)
+	     {
+	       if(i==-1)
+		 {
+		   count--;
+		 }
+	       if(count==1)
+		 break;
+	     }
+	   fgets(str,100,fptr2);
+	   while(fscanf(fptr2,"%d",&a)!=EOF)
+	     {
+	       if(a==-1) break;
+	       else
+		 {
+		   fscanf(fptr2,"%d",&b);
+		   fscanf(fptr2,"%d",&c);
+		   fgets(str,100,fptr2);
+		   A=A+a;
+		   B=B+b;
+		   C=C+c;
+		 }
+	     }
+	   printf("\nMat hang A:%d\n",A);
+	   printf("\nMat hang B:%d\n",B);
+	   printf("\nMat hang C:%d\n",C);
+	   printf("Tong thu:%d (trieu dong)\n",A*10+B*50+C*80);
+	  break;
+	case 6:
+	  //ham6
+	  break;
+	case 7:
+	  thoat=1;
+	  break;
+	}	
+    }while(thoat!=1);
+}
+ 
+

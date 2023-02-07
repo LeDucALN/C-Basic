@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+int main()
+{
+  char c;
+  int count;
+  char str[100];
+    FILE *fptr1,*fptr2,*fptr3;
+  fptr1=fopen("lab.txt","r");
+  fptr2=fopen("lab4.txt","w+");
+  fptr3=fopen("lab5.txt","w+");
+  c=fgetc(fptr1);
+  while(!feof(fptr1))
+    {
+      count=0;
+      while(1)
+	{
+	  c=fgetc(fptr1);
+	  count++;
+	  fputc(c,fptr3);
+	  if(c=='\n') break;
+	}
+      fputc(count,fptr2);
+      fputc(' ',fptr2);
+      fgets(str,100,fptr3);
+      fputs(str,fptr2); 
+    }
+  fclose(fptr1);
+  fclose(fptr2);
+  fclose(fptr3);
+}

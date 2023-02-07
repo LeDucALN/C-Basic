@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdio_ext.h>
+#include <stdlib.h>
+#define Max 100
+#define MaxDanhBa 100
+#define SoLuong 10
+
+typedef struct DanhBa
+{
+  char name[Max];
+  char tel[Max];
+  char mail[Max];
+}address;
+
+typedef address ElementType;
+
+typedef struct DiaChi
+{
+  ElementType Inf;
+  struct DiaChi *Next;
+}DiaChiLienKetDon;
+
+typedef DiaChiLienKetDon PointerType;
+
+PointerType *InsertToHead(PointerType *First, ElementType X){
+  PointerType *TempNode;
+  
+  TempNode = (PointerType *) malloc(sizeof(PointerType));
+  TempNode->Inf = X;
+  TempNode->Next = First;
+  First = TempNode;
+  
+  return First;
+}
+
+PointerType *TimKiem(PointerType *ds,char *X)
+{
+  PointerType *temp;
+  temp=ds;
+  while(temp!=NULL)
+    {
+      if(strcmp((temp->Inf).name,X)==0)
+	break;
+      temp=temp->Next;
+    }
+  return temp;
+}
+
+int main()
+{
+  PointerType *ds=NULL;
+  ElementType danhBa;
+  int i;
+  PointerType *ViTri;
+  char str[Max],ten[Max];
+  FILE *fptr;
+  fptr=fopen("danhBa.txt","r");
+  for(i=0;i<SoLuong;i++)
+    {
+      fgets(str,100,fptr);
+      fgets(danhBa.name,100,fptr);
+      danhBa.name[strlen(danhBa.name)-1]='\0';
+      // printf("\n%s\n",danhBa[i].name);
+      fgets(danhBa.tel,100,fptr);
+      danhBa.tel[strlen(danhBa.tel)-1]='\0';
+      fgets(danhBa.mail,100,fptr);
+      danhBa.mail[strlen(danhBa.mail)-1]='\0';
+      ds=InsertToHead(ds,danhBa);
+    }
+  printf("Ban muon tim ten nao:");
+  __fpurge(stdin);
+  gets(ten);
+  //printf("%s:%ld\n",ten,strlen(ten));
+  __fpurge(stdin);
+  ViTri=TimKiem(ds,ten);
+  if(ViTri==NULL)
+    printf("Khong co ten nay\n");
+  else
+    {
+      printf("%s\n",(ViTri->Inf).name);
+      printf("%s\n",(ViTri->Inf).tel);
+      printf("%s\n",(ViTri->Inf).mail);
+    }
+  fclose(fptr);
+}

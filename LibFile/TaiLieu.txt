@@ -1,0 +1,173 @@
+
+1. fgets
+char *fgets(char *str, int n, FILE *stream)
+
+str -- Đây là con trỏ tới một mảng các char nơi chuỗi được đọc được lưu trữ.
+
+n -- Đây là số ký tự tối đa được đọc (bao gồm ký tự null cuối cùng). Thường thì độ dài của mảng đã truyền là str được sử dụng.
+
+stream -- Đây là con trỏ tới một đối tượng FILE mà nhận diện Stream, nơi mà các ký tự được đọc từ đó.
+
+Trả về giá trị
+
+Nếu thành công, hàm trả về cùng tham số str. Nếu bắt gặp EOF và không có ký tự nào đã được đọc, nội dung của str vẫn không thay đổi và một con trỏ null được trả về.
+
+Nếu một lỗi xuất hiện, một con trỏ null được trả về.
+
+2.fgetc(FILE *stream)
+
+3.fputc(int char, FILE *stream)
+
+4.fputs
+int fputs(const char *str, FILE *stream)
+
+Tham số
+
+str -- Đây là một mảng chứa dãy ký tự kết thúc với null được ghi.
+
+stream -- Đây là con trỏ tới một đối tượng FILE mà nhận diện Stream, nơi chuỗi được ghi.
+
+Trả về giá trị
+
+Hàm này trả về một giá trị không âm, hoặc trả về EOF nếu có lỗi.
+
+5.fread
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
+
+Tham số
+
+ptr − Đây là con trỏ tới một khối bộ nhớ với kích cỡ tối thiểu là size*nmemb byte.
+
+size − Đây là kích cỡ (giá trị byte) của mỗi phần tử được đọc.
+
+nmemb − Đây là số phần tử, với mỗi phần tử có kích cỡ là size byte.
+
+stream − Đây là con trỏ tới một đối tượng FILE mà xác định một Input Stream.
+
+Trả về giá trị
+
+Tổng số phần tử được đọc thành công được trả về dưới dạng một đối tượng size_t, mà là một kiểu dữ liệu nguyên. Nếu số này khác với tham số nmemb, thì hoặc một lỗi đã xảy ra hoặc bắt gặp End-Of-File.
+
+6.fwrite
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream)
+
+Tham số
+
+ptr − Đây là con trỏ tới mảng các phần tử được ghi.
+
+size − Đây là kích cỡ (giá trị byte) của mỗi phần tử được ghi.
+
+nmemb − Đây là số phần tử, với mỗi phần tử có kích cỡ là size byte.
+
+stream − Đây là con trỏ tới một đối tượng FILE mà xác định một Output Stream.
+
+Trả về giá trị
+
+Hàm này trả về tổng số phần tử được trả về thành công dưới dạng một đối tượng size_t, mà là một kiểu dữ liệu nguyên. Nếu số này khác tham số nmemb, nó sẽ chỉ một lỗi.
+
+6.fscanf
+ fscanf(fp, "%s %s %s %d", str1, str2, str3, &year)
+ 
+7.fprintf
+fprintf(fp, "%s %s %s %s", "Chung", "toi", "la", "QTMTeam"
+
+8.fseek
+int fseek(FILE *stream, long int offset, int whence)
+
+Tham số
+
+stream − Đây là con trỏ tới một đối tượng FILE mà nhận diện Stream.
+
+offset − Đây là số byte để offset từ đó.
+
+whence − Đây là vị trí từ đó offset được thêm vào. Nó được xác định bởi một trong số các hằng sau:
+Hằng 	Miêu tả
+SEEK_SET 	Phần đầu file
+SEEK_CUR 	Vị trí hiện tại của con trỏ file
+SEEK_END 	Phần cuối file
+
+Trả về giá trị
+
+Hàm này trả về 0 nếu thành công. Nếu không, hàm trả về giá trị khác 0.
+fseek( fp, 4, SEEK_SET )
+
+9.strtok
+Hàm strtok() trong C
+
+Hàm char *strtok(char *str, const char *delim) chia chuỗi str thành một dãy các token được phân biệt riêng rẽ bởi dấu tách delim (ví dụ: dấu phảy, ...).
+Khai báo hàm strtok() trong C
+
+Dưới đây là phần khai báo cho strtok() trong C:
+
+char *strtok(char *str, const char *delim)
+
+Tham số
+
+    str -- Nội dung của chuỗi này được sửa đổi và được chia thành các chuỗi nhỏ hơn (các token).
+
+    delim -- Đây là chuỗi chứa Delimiter (chỉ các dấu tách). Chúng có thể rất đa dạng tùy vào từng lời gọi.
+
+Trả về giá trị
+
+Hàm này trả về con trỏ tới token cuối cùng được tìm thấy trong chuỗi. Một con trỏ null được trả về nếu không thu được token nào.
+Ví dụ
+
+Chương trình C sau minh họa cách sử dụng của strtok() trong C:
+
+#include <string.h>
+#include <stdio.h>
+
+int main()
+{
+   char str[80] = "Hoc C - co ban va nang cao - tai VietJack";
+   const char s[2] = "-";
+   char *token;
+   
+   /* lay token dau tien */
+   token = strtok(str, s);
+   
+   /* duyet qua cac token con lai */
+   while( token != NULL ) 
+   {
+      printf( " %s\n", token );
+    
+      token = strtok(NULL, s);
+   }
+   
+   return(0);
+}
+
+10.atoi
+
+int atoi(const char *str)
+
+Tham số
+
+    str -- Đây là chuỗi biểu diễn một số nguyên.
+
+Trả về giá trị
+
+Hàm này trả về số nguyên đã được chuyển đổi dưới dạng một giá trị int. Nếu không có sự chuyển đổi hợp lệ nào được thực hiện, hàm trả về 0.
+Ví dụ
+
+Chương trình C sau minh họa cách sử dụng của hàm atoi() trong C:
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+   int val;
+   char str[20];
+   
+   strcpy(str, "98993489");
+   val = atoi(str);
+   printf("Gia tri duoi dang chuoi = %s, \nGia tri duoi dang so nguyen = %d\n", str, val);
+
+   strcpy(str, "vietjack.com");
+   val = atoi(str);
+   printf("\nGia tri duoi dang chuoi = %s, \nGia tri duoi dang so nguyen = %d\n", str, val);
+
+   return(0);
+}

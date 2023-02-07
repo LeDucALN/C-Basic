@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <math.h>
+#include <string.h>
+#include <ctype.h>
+//1,in menu va nhap lua chon
+int menuVaLuaChon(int a,int b)
+{
+  int luaChon,buff;
+  char c;
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%25s%6s%25s|\n","","MENU","");
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%5d|%-50s|\n",1,"Y nghia");
+  printf("+-----+--------------------------------------------------+\n");
+
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao lua chon cua ban:");
+      buff=scanf("%d%c",&luaChon,&c);
+      if(buff!=2&&c!='\n'||luaChon<a||luaChon>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2&&c!='\n'||luaChon<a||luaChon>b);
+  return luaChon;
+}
+
+
+int menuVaLuaChonHocSinh(int a,int b)
+{
+  int luaChon,buff;
+  char c;
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%25s%6s%25s|\n","","MENU","");
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%5d|%-50s|\n",1,"Y nghia");
+  printf("+-----+--------------------------------------------------+\n");
+
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao lua chon cua ban:");
+      buff=scanf("%d%c",&luaChon,&c);
+      if(buff!=2&&c!='\n'||luaChon<a||luaChon>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2&&c!='\n'||luaChon<a||luaChon>b);
+  return luaChon;
+}
+
+
+int menuVaLuaChonAdmin(int a,int b)
+{
+  int luaChon,buff;
+  char c;
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%25s%6s%25s|\n","","MENU","");
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%5d|%-50s|\n",1,"Y nghia");
+  printf("+-----+--------------------------------------------------+\n");
+
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao lua chon cua ban:");
+      buff=scanf("%d%c",&luaChon,&c);
+      if(buff!=2&&c!='\n'||luaChon<a||luaChon>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2&&c!='\n'||luaChon<a||luaChon>b);
+  return luaChon;
+}
+
+
+int main()
+{
+
+  int thoat,luaChon;
+  thoat=0;
+  do
+    {
+      luaChon= menuVaLuaChon(1,4);
+      switch(luaChon)
+	{
+	case 1:
+	  //ham1
+	    break;
+	case 2:
+	  //ham2
+	  break;
+	case 3:
+	  //ham3
+	  break;
+	case 4:
+	  thoat=1;
+	  break;
+	}	
+    }while(thoat!=1);
+}

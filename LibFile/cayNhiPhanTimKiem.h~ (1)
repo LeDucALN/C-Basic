@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+typedef int elmType;
+typedef struct nodeType
+{
+  elmType element;
+  struct nodeType *left, *right;
+} node_Type;
+
+typedef struct nodeType *treetype;

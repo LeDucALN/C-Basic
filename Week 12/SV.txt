@@ -1,0 +1,3 @@
+1003	nguyenthimainlin      nu	7.00	8.00	9.00	8.00
+1004	QuaJaxiaoHollowa      nu	6.00	8.00	5.00	6.33
+1002	levantam	      nam	4.00	5.00	6.00	5.00

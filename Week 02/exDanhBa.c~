@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <string.h>
+#define Max 100
+#define SoLuong 10
+#define SoLuongMax 100
+
+typedef struct danhBa
+{
+  char name[Max];
+  char tel[Max];
+  char mail[Max];
+}address;
+
+int main()
+{
+  address DanhBa[SoLuongMax];
+  int i;
+  FILE *fptr1;
+  fptr1=fopen("danhBa.txt","w+");
+  for(i=0;i<SoLuong;i++)
+    {
+      printf("Nguoi dung %d\n",i+1);
+      printf("Nhap vao ten:");
+      __fpurge(stdin);;
+      gets(DanhBa[i].name);
+      //printf("%s %ld",DanhBa[i].name,strlen(DanhBa[i].name));
+      //DanhBa[i].name[strlen(DanhBa[i].name)]='\0';
+      __fpurge(stdin);
+      printf("Nhap vao so dien thoai:");
+      gets(DanhBa[i].name);
+      //DanhBa[i].tel[strlen(DanhBa[i].tel)]='\0';
+      __fpurge(stdin);
+      printf("Nhap vao mail:");
+      gets(DanhBa[i].name);
+      //DanhBa[i].mail[strlen(DanhBa[i].mail)]='\0';
+      __fpurge(stdin);
+    }
+  for(i=0;i<SoLuong;i++)
+    {
+      //fwrite(&i,sizeof(int),100,fptr1);
+      fputs("\n",fptr1);
+      fwrite(DanhBa[i].name,1,sizeof(DanhBa[i].name),fptr1);
+      fputs("\n",fptr1);
+      fwrite(DanhBa[i].tel,1,sizeof(DanhBa[i].tel),fptr1);
+      fputs("\n",fptr1);
+      fwrite(DanhBa[i].mail,1,sizeof(DanhBa[i].mail),fptr1);
+      fputs("\n",fptr1);
+    }
+  fclose(fptr1);
+}

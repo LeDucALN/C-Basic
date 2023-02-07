@@ -1,0 +1,208 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+typedef int elmType;
+typedef struct nodeType
+{
+  elmType element;
+  struct nodeType *left, *right;
+} node_Type;
+
+typedef struct nodeType *treetype;
+
+void MakeNullTree (treetype *T)
+{
+  (*T)=NULL;
+}
+
+int EmptyTree(treetype T)
+{
+  return T==NULL;
+}
+
+treetype LeftChild(treetype n)
+{
+  if(n!=NULL) return n->left;
+  else return NULL;
+}
+
+treetype RightChild(treetype n)
+{
+  if(n!=NULL) return n->right;
+  else return NULL;
+}
+
+node_Type *creat_node(elmType NewData)
+{
+  node_Type *N;
+  N=(node_Type*)malloc(sizeof(node_Type));
+  if(N!=NULL)
+    {
+      N->left = NULL;
+      N->right = NULL;
+      N->element = NewData;
+    }
+  return N;
+}
+
+int IsLeaf(treetype n)
+{
+  if(n!=NULL)
+    return (LeftChild(n)==NULL)&&(RightChild(n)==NULL);
+  else return -1;
+}
+
+int nb_nodes(treetype T)
+{
+  if(EmptyTree(T)) return 0;
+  else return 1+nb_nodes(LeftChild(T))+nb_nodes(RightChild(T));
+}
+
+treetype creatfrom2( elmType v, treetype l,treetype r)
+{
+  treetype N;
+  N=(node_Type*)malloc(sizeof(node_Type));
+  N->element = v;
+  N->left=l;
+  N->right = r;
+  return N;
+}
+
+treetype Add_Left(treetype *Tree, elmType NewData)
+{
+  node_Type *NewNode = creat_node(NewData);
+  if(NewNode==NULL) return NewNode;
+  if(*Tree == NULL)
+    *Tree = NewNode;
+  else
+    {
+      node_Type *Lnode=*Tree;
+      while (Lnode->left != NULL)
+	Lnode=Lnode->left;
+      Lnode->left=NewNode;
+    }
+  return NewNode;
+}
+
+treetype Add_Right(treetype *Tree, elmType NewData)
+{
+  node_Type *NewNode = creat_node(NewData);
+  if(NewNode==NULL) return NewNode;
+  if(*Tree == NULL)
+    *Tree = NewNode;
+  else
+    {
+      node_Type *Rnode=*Tree;
+      while (Rnode->right != NULL)
+	Rnode=Rnode->right;
+      Rnode->right=NewNode;
+    }
+  return NewNode;
+}
+
+int soLa(treetype Tree)
+{
+  if(Tree==NULL) return 0;
+  else
+    if(IsLeaf(Tree)==1) return 1;
+    else
+      return soLa(LeftChild(Tree))+soLa(RightChild(Tree));
+}
+
+elmType  max( elmType a, elmType b)
+{
+  if(a>b) return a;
+  else return b;
+}
+
+int chieuCao(treetype Tree)
+{
+  if(Tree==NULL) return 0;
+  else
+    if(IsLeaf(Tree)==1) return 1;
+    else return max(chieuCao(LeftChild(Tree))+1,1+chieuCao(RightChild(Tree)));
+}
+
+treetype Search( elmType x,treetype Root)
+{
+  if(Root==NULL) return NULL;
+  else if(Root->element==x)
+    return Root;
+  else if(Root->element<x)
+    return Search(x,RightChild(Root));
+  else
+    return Search(x,LeftChild(Root));
+}
+
+void InsertNode( elmType x, treetype *Root)
+{
+  if(*Root==NULL)
+    {
+      *Root=(node_Type*)malloc(sizeof(node_Type));
+      (*Root)->element=x;
+      (*Root)->left=NULL;
+      (*Root)->right=NULL;
+    }
+  else if(x<(*Root)->element) InsertNode(x,&(*Root)->element);
+  else if(x>(*Root)->element) InsertNode(x,&(*Root)->element);
+}
+
+
+elmType DeleteMin (treetype *Root)
+{
+  elmType k;
+  if((*Root)->left==NULL)
+    {
+      k=(*Root)->element;
+      (*Root)=(*Root)->right;
+      return k;
+    }
+  else return DeleteMin(&(*Root)->left);
+}
+
+void DeleteNode(elmType x,treetype *Root)
+{
+  if(*Root!=NULL)
+    if(x<(*Root)->element) DeleteNode(x,&(*Root)->left);
+    else if(x>(*Root)->element)
+      DeleteNode(x,&(*Root)->right);
+    else if(((*Root)->left==NULL)&&((*Root)->right==NULL))
+      *Root=NULL;
+    else if((*Root)->left==NULL)
+      *Root=(*Root)->right;
+    else if((*Root)->right==NULL)
+      *Root=(*Root)->left;
+    else (*Root)->element=DeleteMin(&(*Root)->right);
+}
+
+void freetree(treetype Tree)
+{
+  if(Tree!=NULL)
+    {
+      freetree(Tree->left);
+      freetree(Tree->right);
+      free((void*)Tree);
+    }
+}
+
+int main()
+{
+  int i,n,m;
+  elmType Data;
+  treetype T;
+  MakeNullTree(&T);
+  for(i=0;i<5;i++)
+    {
+      srand(time(NULL));
+      Data=rand()%10;
+      Add_Left(&T,Data);
+      Data=rand()%10;
+      Add_Right(&T,Data);
+    }
+  printf("Nhap vao so nguyen:");
+  scanf("%d",&n);
+  if(Search(n,T)==NULL) printf("Khong tim thay");
+  else printf("Dia chi so nguyen nay la:%p",Search(n,T));
+  printf("\n");
+}

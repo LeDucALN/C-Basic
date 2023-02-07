@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <string.h>
+#define SoLuong 10
+
+
+int main()
+{
+  char a[SoLuong];
+  int i;
+  for(i=0;i<SoLuong;i++)
+    {
+      getc(a);
+    }
+}

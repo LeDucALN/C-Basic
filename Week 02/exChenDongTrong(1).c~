@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+  FILE *fptr;
+  char str[100];
+  fptr=fopen("class1Ef.txt","w");
+  while(!feof(fptr))
+    {
+      fgets(str,100,fptr);
+      fprintf(fptr,"%c",'\n');
+      //fgets(str,100,fptr);
+    }
+}

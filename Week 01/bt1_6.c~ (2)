@@ -1,0 +1,9 @@
+#include <stdio.c>
+
+int main(int argc, char *argc[])
+{
+  double dai,rong;
+  dai=argv[1]-'0';
+  rong=argv[2]-'0';
+  printf("Dien tich la %.5f\nChu vi la %.5f\n",dai*rong,2*(dai+rong));
+}

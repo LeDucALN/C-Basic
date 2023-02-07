@@ -1,0 +1,29 @@
+
+void freetree(treetype Tree)
+{
+  if(Tree!=NULL)
+    {
+      freetree(Tree->left);
+      freetree(Tree->right);
+      free((void*)Tree);
+    }
+}
+
+int main()
+{
+  int i,n,m;
+  elmType Data;
+  treetype T;
+  MakeNullTree(&T);
+  srand(time(NULL));
+  for(i=0;i<10;i++)
+    {
+      Data=rand()%10;
+      printf("%d\n",Data);
+      InsertNode(Data,&T);
+    }
+  printf("Nhap vao so nguyen:");
+  scanf("%d",&n);
+  if(Search(n,T)==NULL) printf("Khong tim thay");
+  else printf("Dia chi so nguyen nay la:%p",Search(n,T));
+  printf("\n");

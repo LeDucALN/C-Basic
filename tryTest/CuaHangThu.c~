@@ -1,0 +1,347 @@
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <math.h>
+#include <string.h>
+#include <ctype.h>
+//1,in menu va nhap lua chon
+int menuVaLuaChon(int a,int b)
+{
+  int luaChon,buff;
+  char c;
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%25s%6s%25s|\n","","MENU","");
+  printf("+-----+--------------------------------------------------+\n");
+  printf("|%5d|%-50s|\n",1,"Y nghia");
+  printf("+-----+--------------------------------------------------+\n");
+
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao lua chon cua ban:");
+      buff=scanf("%d%c",&luaChon,&c);
+      if(buff!=2&&c!='\n'||luaChon<a||luaChon>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2&&c!='\n'||luaChon<a||luaChon>b);
+  return luaChon;
+}
+
+//2, nhap so Nguyen
+int checkSoNguyen(int a, int b,char cc[])
+{
+  int so,buff;
+  char c;
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",cc);
+      buff=scanf("%d%c",&so,&c);
+      if(buff!=2||c!='\n'||so<a||so>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2||c!='\n'||so<a||so>b);
+  return so;
+}
+
+//3, nhap so thuc
+double checkSoThuc(double a, double b,char cc[])
+{
+  double so,buff;
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",cc);
+      buff=scanf("%lf",&so);
+      if(buff!=1) printf("Ban da nhap sai cu phap\n");
+      if(so<a||so>b) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=1||so<a||so>b);
+  return so;
+}
+
+//4, xoa dau cach
+void trimRight(char a[])
+{
+  int ktCuoi,i,j;
+  ktCuoi=strlen(a);
+  while(a[ktCuoi]=='.'||a[ktCuoi]==','||a[ktCuoi]=='\0') ktCuoi--;
+  j=ktCuoi;
+  while(a[j]==' ') j--;
+  strcpy(a+j+1,a+ktCuoi+1);
+}
+
+void trimLeft(char a[])
+{
+  while(a[0]==' ') strcpy(a,a+1);
+}
+
+void trimMiddle(char a[])
+{
+  int i,ktDau,ktCuoi;
+  ktDau=0;
+  while(a[ktDau]==' ') ktDau++;
+  ktCuoi=strlen(a);
+  while(a[ktCuoi]=='.'||a[ktCuoi]==','||a[ktCuoi]=='\0') ktCuoi--;
+  while(a[ktCuoi]==' ') ktCuoi--;
+  
+  for(i=ktDau;i<=ktCuoi;i++)
+    {
+      if(a[i]==' ' && a[i+1]==' ') {strcpy(a+i,a+i+1);i--;ktCuoi--;}
+    }
+}
+
+//5,chuan hoa thuong
+void chuanHoaThuong( char a[])
+{
+  trimRight(a);
+  trimLeft(a);
+  trimMiddle(a);
+}
+
+//6, chuan hoa ten Chinh
+void chuanHoaTen( char ten[])
+{
+  int i,j,k;
+  char b[50];
+  j=0;
+  for(i=0;i<strlen(ten);i++)
+    {
+      if(ten[i]==' '&&ten[i+1]==' ')
+	{
+	  strcpy(ten+i,ten+i+1);
+	  i--;
+	}
+    }
+  
+  i=0;
+  while(ten[i]==' ') i++;
+  strcpy(ten,ten+i);
+  
+  k=strlen(ten);
+  while(ten[k]=='.'||ten[k]==','||ten[k]=='\0') k--;
+  i=k;
+  while(ten[i]==' ') i--;
+  strcpy(ten+i+1,ten+k+1);
+
+  for(i=0;i<strlen(ten);i++)
+    {
+      if(i==0) {ten[i]=toupper(ten[i]);b[j]=i;j++;}
+      if(ten[i]==' ')
+	{
+	  ten[i+1]=toupper(ten[i+1]);
+	  b[j]=i+1;
+	  j++;
+	}
+    }
+  
+  k=j;
+      for(j=0;j<k;j++)
+	{
+	  if(j==k-1)
+	    for(i=b[j]+1;i<strlen(ten)-1;i++) ten[i]=tolower(ten[i]);
+	  for(i=b[j]+1;i<b[j+1];i++) ten[i]=tolower(ten[i]);
+	}
+}
+
+//7, lam tron so
+double lamTron(double a, int b)
+{
+  double c;
+  c=a*pow(10,b);
+  c=round(c);
+  a=c/10.0;
+  return a;
+}
+
+//8, lam tron den 0.5
+double lamTron05( double a)
+{
+  if(a-floor(a)>=0.75) return floor(a)+1.0;
+  else if(a-floor(a)>=0.25) return floor(a)+0.5;
+  else return floor(a);
+}
+
+
+//9, sap xep NGUYEN giam dan
+void sapXepNguyenGiamDan( int a[], int size)
+{
+  int i,j,tmp;
+  for(i=0;i<size;i++)
+    {
+      for(j=size;j>i;j--)
+	{
+	  if(a[i]<a[j])
+	    {
+	      tmp=a[i];
+	      a[i]=a[j];
+	      a[j]=tmp;
+	    }
+	}
+    }
+}
+
+//10, sap xep NGUYEN lon dan
+void sapXepNguyenLonDan( int a[], int size)
+{
+  int i,j,tmp;
+  for(i=0;i<size;i++)
+    {
+      for(j=size;j>i;j--)
+	{
+	  if(a[i]>a[j])
+	    {
+	      tmp=a[i];
+	      a[i]=a[j];
+	      a[j]=tmp;
+	    }
+	}
+    }
+}
+
+//11, sap xep THUC giam dan
+void sapXepThucGiamDan( double a[], double size)
+{
+  int i,j,tmp;
+  for(i=0;i<size;i++)
+    {
+      for(j=size;j>i;j--)
+	{
+	  if(a[i]<a[j])
+	    {
+	      tmp=a[i];
+	      a[i]=a[j];
+	      a[j]=tmp;
+	    }
+	}
+    }
+}
+
+//12, Sap xep THUC lon dan
+void sapXepThucLonDan( double a[], double size)
+{
+  int i,j,tmp;
+  for(i=0;i<size;i++)
+    {
+      for(j=size;j>i;j--)
+	{
+	  if(a[i]>a[j])
+	    {
+	      tmp=a[i];
+	      a[i]=a[j];
+	      a[j]=tmp;
+	    }
+	}
+    }
+}
+
+//13,than ham va switch case
+void thanHam()
+{
+  int thoat,luaChon;
+  thoat=0;
+  do
+    {
+      luaChon= menuVaLuaChon(1,4);
+      switch(luaChon)
+	{
+	case 1:
+	  //ham1
+	    break;
+	case 2:
+	  //ham2
+	  break;
+	case 3:
+	  //ham3
+	  break;
+	case 4:
+	  thoat=1;
+	  break;
+	}	
+    }while(thoat!=0);
+}
+
+//14, tach ten
+void tachTen(char a[])
+{
+  chuanHoaTen(a);
+  int i;
+  for(i=0;i<strlen(a);i++)
+    {
+      if(a[i]==' ') strcpy(a,a+i+1);
+    }
+}
+
+//15, copy ten ban sao
+void copyTen( char asao[], char a[], int size)
+{
+  int i;
+  for(i=0;i<size;i++)
+    {
+      asao[i]=a[i];
+    }
+}
+
+//16, nhap char
+void nhapChar(char a[], int b, char c[])
+{
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",c);
+      gets(a);
+    }while(strlen(a)>b);
+}
+
+//17,nhap so Nguyen Duong
+int checkSoNguyenDuong(char cc[])
+{
+  int so,buff;
+  char c;
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",cc);
+      buff=scanf("%d%c",&so,&c);
+      if(buff!=2||c!='\n'||so<0) printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2||c!='\n'||so<0);
+  return so;
+}
+
+//18,nhpa so nguyen thuong
+int checkSoNguyenThuong(char cc[])
+{
+  int so,buff;
+  char c;
+  do
+    {
+      __fpurge(stdin);
+      printf("Nhap vao %s:",cc);
+      buff=scanf("%d%c",&so,&c);
+      if(buff!=2||c!='\n') printf("Ban da nhap sai cu phap\n");
+    }while(buff!=2||c!='\n');
+  return so;
+}
+
+
+int main()
+{
+
+  int thoat,luaChon;
+  thoat=0;
+  do
+    {
+      luaChon= menuVaLuaChon(1,4);
+      switch(luaChon)
+	{
+	case 1:
+	  //ham1
+	    break;
+	case 2:
+	  //ham2
+	  break;
+	case 3:
+	  //ham3
+	  break;
+	case 4:
+	  thoat=1;
+	  break;
+	}	
+    }while(thoat!=1);
+}
+ 
+

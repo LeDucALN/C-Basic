@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+typedef struct point
+{
+double x;
+double y;
+} point_t;
+
+typedef struct circle
+{
+point_t center;
+double radius;
+} circle_t;
+
+int is_in_circle(point_t p, circle_t c)
+{
+  double d;
+  d=sqrt((p.x-(c.center).x)*(p.x-(c.center).x)+(p.y-(c.center).y)*(p.y-(c.center).y));
+  if(d>c.radius) return 0;
+  return 1;
+}

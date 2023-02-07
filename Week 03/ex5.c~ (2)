@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio_ext.h>
+#include <string.h>
+#define Max 50
+#define ID_LENGHTH 15
+#define NAME_LENGHTH 50
+
+typedef struct HoSo
+{
+  char id[ID_LENGHTH];
+  char name[NAME_LENGHTH];
+  int grade;
+}HoSoHocSinh;
+
+typedef HoSoHocSinh ElementType;
+
+typedef struct Student_t
+{
+  ElementType Inf;
+  struct Student_t *Next;
+}Student;
+
+typedef Student PointerType;
+
+
+
